@@ -1,5 +1,5 @@
 <?php
-require 'Test.php';
+require '.:/usr/local/lib/php/Test.php';
 
 $t = new Test();
 
