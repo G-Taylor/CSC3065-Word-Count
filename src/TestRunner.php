@@ -1,6 +1,5 @@
 <?php
-set_include_path(get_include_path().":"."/src/Test.php");
-require('Test.php');
+require('/src/Test.php');
 
 $t = new Test();
 
