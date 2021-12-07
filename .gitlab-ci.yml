@@ -2,5 +2,4 @@ image: php:7.2
 
 test:app:
   script:
-    - cd src
-    - php TestRunner.php
+    - php src/TestRunner.php
