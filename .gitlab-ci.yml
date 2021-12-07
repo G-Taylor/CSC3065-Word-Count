@@ -2,4 +2,4 @@ image: php:7.2
 
 test:app:
   script:
-    - php Test.php
+    - php src/test.php
