@@ -4,7 +4,6 @@ require('functions.inc.php');
 require('vendor/autoload.php');
 use PHPUnit\Framework\TestCase;
 
-
 class Test extends TestCase {
 
     protected $client;
@@ -102,4 +101,15 @@ class Test extends TestCase {
         $this->assertEquals(10, $data['answer']);
         echo "Test Get_TenWord Passed\n";
     }
+
 }
+
+$t = new Test();
+
+$t->test_wordcount_function();
+$t->testGet_ValidInput_Wordcount();
+$t->testGet_NoInput_Wordcount();
+$t->testGet_WrongInput_Wordcount();
+$t->testGet_TenWord_Wordcount();
+
+exit(0);
