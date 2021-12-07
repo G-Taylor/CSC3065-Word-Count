@@ -1,5 +1,5 @@
 <?php
-require 'Test.php';
+require './Test.php';
 
 $t = new Test();
 
