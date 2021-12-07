@@ -19,11 +19,12 @@ class Test extends TestCase {
 
         if ($answer==$expect)
         {
-            echo "Test Passed\n";
+            echo "Test wordcount_function Passed\n";
         }
         else
         {
-            echo "Test Failed\n";
+            echo "Test wordcount_function Failed\n";
+            exit(1);
         }
     }
 
@@ -36,6 +37,7 @@ class Test extends TestCase {
             ]
         ]);
 
+        
         $this->assertEquals(200, $response->getStatusCode());
 
         $data = json_decode($response->getBody(), true);
@@ -44,7 +46,7 @@ class Test extends TestCase {
         $this->assertArrayHasKey('string', $data);
         $this->assertArrayHasKey('answer', $data);
         $this->assertEquals(4, $data['answer']);
-        echo "Test Passed\n";
+        echo "Test Get_ValidInput Passed\n";
     }
 
     public function testGet_NoInput_Wordcount() {
@@ -64,6 +66,40 @@ class Test extends TestCase {
         $this->assertArrayHasKey('string', $data);
         $this->assertArrayHasKey('answer', $data);
         $this->assertEquals(0, $data['answer']);
-        echo "Test Passed\n";
+        $this->assertEquals('No Text Entered', $data['string']);
+        echo "Test Get_NoInput Passed\n";
+    }
+
+    public function testGet_WrongInput_Wordcount() {
+        $this->client = new GuzzleHttp\Client(['base_uri' => 'http://wordcount.40234272.qpc.hal.davecutting.uk']);
+        
+        try {
+            $response = $this->client->get('/test');
+        } catch (GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+            $this->assertEquals(404, $response->getStatusCode());
+            echo "Test Get_WrongInput Passed\n";
+        }
+        
+    }
+
+    public function testGet_TenWord_Wordcount() {
+        $this->client = new GuzzleHttp\Client(['base_uri' => 'http://wordcount.40234272.qpc.hal.davecutting.uk']);
+        
+        $response = $this->client->get('/', [
+            'query' => [
+                'text' => 'this is an api test to check for ten words'
+            ]
+        ]);
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $data = json_decode($response->getBody(), true);
+
+        $this->assertArrayHasKey('error', $data);
+        $this->assertArrayHasKey('string', $data);
+        $this->assertArrayHasKey('answer', $data);
+        $this->assertEquals(10, $data['answer']);
+        echo "Test Get_TenWord Passed\n";
     }
 }
