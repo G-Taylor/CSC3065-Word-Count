@@ -1,5 +1,5 @@
 <?php
-require 'src/Test.php';
+require 'Test.php';
 
 $t = new Test();
 
